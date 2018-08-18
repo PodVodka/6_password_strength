@@ -6,10 +6,6 @@ def get_password_strength(password):
     min_len = 4
     average_len = 7
     password_strength = 0
-    pattern_special_characters = r'\W'
-    password_special_characters = re.search(pattern_special_characters, password)
-    pattern_dig = r'[0-9]+'
-    password_dig = re.search(pattern_dig, password)
     if len(password) <= min_len:
         password_strength += 1
         return password_strength
@@ -18,9 +14,9 @@ def get_password_strength(password):
         return password_strength
     else:
         password_strength += 3
-    if bool(password_dig):
+    if re.search(r'[0-9]+', password):
         password_strength += 2
-    if bool(password_special_characters):
+    if re.search(r'\W', password):
         password_strength += 3
     if not password.islower() and not password.isupper():
         password_strength += 2
